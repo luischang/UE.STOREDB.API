@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,32 @@ namespace UE.STOREDB.DOMAIN.Core.Services
             return categoriesDTO;
         }
 
+        public async Task<CategoryListDTO> GetById(int id)
+        {
+            var category =  await _categoryRepository.GetById(id);
+            var categoryDTO = new CategoryListDTO();
+            categoryDTO.Id = id;
+            categoryDTO.Description = category.Description;
+            return categoryDTO;
+        }
+        public async Task<CategoryProductstDTO> GetByIdWithProducts(int id)
+        {
+            var category = await _categoryRepository.GetById(id);
+            var categoryProductDTO = new CategoryProductstDTO();
+            categoryProductDTO.Id = id;
+            categoryProductDTO.Description = category.Description;
+            var productListDTO = new List<ProductListDTO>();
+            foreach (var cp in category.Product)
+            {
+                var product = new ProductListDTO();
+                product.Id = cp.Id;
+                product.Description = cp.Description;
+                productListDTO.Add(product);
+            }
+            categoryProductDTO.Products = productListDTO;
+            return categoryProductDTO;
+        }
+
         public async Task<IEnumerable<CategoryProductstDTO>> GetWithProducts()
         {
             var categories = await _categoryRepository.GetAll();
@@ -56,6 +83,15 @@ namespace UE.STOREDB.DOMAIN.Core.Services
                 categoryProducts.Add(categoryProductsDTO);
             }
             return categoryProducts;
+        }
+
+        public async Task<bool> Create(CategoryCreateDTO categoryCreate)
+        {
+            var category = new Category();
+            category.Description = categoryCreate.Description;
+            category.IsActive = true;
+
+            return await _categoryRepository.Insert(category);
         }
     }
 }

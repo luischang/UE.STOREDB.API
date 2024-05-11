@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UE.STOREDB.DOMAIN.Core.DTO;
 using UE.STOREDB.DOMAIN.Core.Entities;
 using UE.STOREDB.DOMAIN.Core.Interfaces;
 
@@ -34,6 +35,14 @@ namespace UE.STOREDB.API.Controllers
             return Ok(categoriesWithProducts);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id, [FromQuery] bool includeProducts)
+        {            
+            if (includeProducts)
+                return Ok(await _categoryService.GetByIdWithProducts(id));
+            else
+                return Ok(await _categoryService.GetById(id));
+        }
 
         //[HttpGet("{id}")]
         //public async Task<IActionResult> GetById(int id)
@@ -45,13 +54,13 @@ namespace UE.STOREDB.API.Controllers
         //    return Ok(category);
         //}
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create([FromBody] Category category)
-        //{
-        //    var result = await _categoryRepository.Insert(category);
-        //    if (!result) return BadRequest();
-        //    return Ok(result);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CategoryCreateDTO category)
+        {
+            var result = await _categoryService.Create(category);
+            if (!result) return BadRequest();
+            return Ok(result);
+        }
         //[HttpPut("{id}")]
         //public async Task<IActionResult> Update(int id, [FromBody] Category category)
         //{

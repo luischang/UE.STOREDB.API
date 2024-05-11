@@ -42,6 +42,7 @@ namespace UE.STOREDB.DOMAIN.Infrastructure.Repositories
             return await _dbContext
                     .Category
                     .Where(c => c.IsActive == true && c.Id == id)
+                    .Include(p => p.Product)
                     .FirstOrDefaultAsync();
         }
 
