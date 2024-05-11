@@ -31,8 +31,9 @@ namespace UE.STOREDB.DOMAIN.Infrastructure.Repositories
         public async Task<IEnumerable<Category>> GetAll()
         {
             return await _dbContext
-                    .Category
+                    .Category                    
                     .Where(c => c.IsActive == true)
+                    .Include(p => p.Product)
                     .ToListAsync();
         }
 

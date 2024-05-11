@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using UE.STOREDB.DOMAIN.Core.Interfaces;
+using UE.STOREDB.DOMAIN.Core.Services;
 using UE.STOREDB.DOMAIN.Infrastructure.Data;
 using UE.STOREDB.DOMAIN.Infrastructure.Repositories;
 
@@ -14,6 +15,8 @@ builder.Services
     (options => options.UseSqlServer(cnx));
 
 builder.Services.AddTransient<ICategoryRepository,CategoryRepository>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
