@@ -12,10 +12,11 @@ namespace UE.STOREDB.DOMAIN.Core.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-
-        public UserService(IUserRepository userRepository)
+        private readonly IJWTService _jWTService;
+        public UserService(IUserRepository userRepository, IJWTService jWTService)
         {
             _userRepository = userRepository;
+            _jWTService = jWTService;
         }
 
 
@@ -27,7 +28,7 @@ namespace UE.STOREDB.DOMAIN.Core.Services
                 return null;
 
             //TODO: implementar token & email
-            var token = "";
+            var token = _jWTService.GenerateJWToken(user);
             var sendEmail = false;
 
             var userResponseAuth = new UserResponseAuthDTO()

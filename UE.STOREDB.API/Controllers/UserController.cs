@@ -37,7 +37,7 @@ namespace UE.STOREDB.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("SignIn")]
         public async Task<IActionResult> SignIn([FromBody]UserAuthDTO authDTO)
         {           
             //TODO: Validar email

@@ -3,6 +3,7 @@ using UE.STOREDB.DOMAIN.Core.Interfaces;
 using UE.STOREDB.DOMAIN.Core.Services;
 using UE.STOREDB.DOMAIN.Infrastructure.Data;
 using UE.STOREDB.DOMAIN.Infrastructure.Repositories;
+using UE.STOREDB.DOMAIN.Infrastructure.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,10 @@ builder.Services.AddTransient<IFavoriteRepository, FavoriteRepository>();
 builder.Services.AddTransient<IFavoriteService, FavoriteService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient <IUserService, UserService>();
+builder.Services.AddTransient<IJWTService, JWTService>();
+
+builder.Services.AddSharedInfrastructure(_config);
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
