@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UE.STOREDB.DOMAIN.Core.DTO;
 using UE.STOREDB.DOMAIN.Core.Entities;
@@ -8,6 +9,7 @@ namespace UE.STOREDB.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         //private readonly ICategoryRepository _categoryRepository;
@@ -21,6 +23,7 @@ namespace UE.STOREDB.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             //var categories = await _categoryRepository.GetAll();

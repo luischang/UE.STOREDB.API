@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UE.STOREDB.DOMAIN.Core.DTO;
 using UE.STOREDB.DOMAIN.Core.Interfaces;
@@ -7,6 +8,7 @@ namespace UE.STOREDB.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FavoriteController : ControllerBase
     {
         private readonly IFavoriteService _favoriteService;
