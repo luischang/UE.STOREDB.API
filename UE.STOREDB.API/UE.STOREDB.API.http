@@ -1,6 +1,14 @@
 @UE.STOREDB.API_HostAddress = http://localhost:5168
+@signIn = {"Email":"cr7@portugal.com", "Password":"cr7123"}
 
 GET {{UE.STOREDB.API_HostAddress}}/weatherforecast/
 Accept: application/json
+
+###
+
+POST {{UE.STOREDB.API_HostAddress}}/api/user/SignIn
+Content-Type: application/json
+
+{{signIn}}
 
 ###
